@@ -28,11 +28,11 @@ const props = defineProps({
 const chart = ref(null)
 
 const keys = [
-  ['5* Character', 'count5c'],
-  ['5* Weapon', 'count5w'],
-  ['4* Character', 'count4c'],
-  ['4* Weapon', 'count4w'],
-  ['3* Weapon', 'count3w']
+  ['Personnage 5 étoiles', 'count5c'],
+  ['Arme 5 étoiles', 'count5w'],
+  ['Personnage 4 étoiles', 'count4c'],
+  ['Arme 4 étoiles', 'count4w'],
+  ['Arme 3 étoiles', 'count3w']
 ]
 
 const colors = [
@@ -47,7 +47,7 @@ const parseData = (detail, type) => {
   const result = []
   const color = []
   const selected = {
-    '3 Star Weapon': false
+    'Arme 3 étoiles': false
   }
   keys.forEach((key, index) => {
     if (!detail[key[1]]) return
@@ -58,7 +58,7 @@ const parseData = (detail, type) => {
     color.push(colors[index])
   })
   if (type === '100' || result.findIndex(item => item.name.includes('5')) === -1) {
-    selected['3 Star Weapon'] = true
+    selected['Arme 3 étoiles'] = true
   }
   return [result, color, selected]
 }

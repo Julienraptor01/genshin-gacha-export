@@ -1,6 +1,6 @@
 <template>
-  <el-button class="focus:outline-none" :disabled="!allowClick()" plain size="small" @click="fetchData" :loading="state.status === 'loading'">{{state.status === 'init' ? 'Load Data': 'Update Data'}}</el-button>
-  <el-button @click="saveExcel" class="focus:outline-none" :disabled="!state.data" size="small" type="success" plain>Export to Excel</el-button>
+  <el-button class="focus:outline-none" :disabled="!allowClick()" plain size="small" @click="fetchData" :loading="state.status === 'loading'">{{state.status === 'init' ? 'Copier l\'historique': 'Mettre à jour l\'historique'}}</el-button>
+  <el-button @click="saveExcel" class="focus:outline-none" :disabled="!state.data" size="small" type="success" plain>Exporter vers Excel</el-button>
   <p class="text-gray-400 my-2 text-xs">{{hint}}</p>
   <div v-if="detail" class="flex gap-4 flex-wrap justify-between cont">
     <div class="flex-grow flex-shrink-0 mb-4 w-64" v-for="(item, i) of detail" :key="i">
@@ -36,13 +36,13 @@ const allowClick = () => {
 
 const hint = computed(() => {
   if (state.status === 'init') {
-    return 'Please login to Genshin, open up your wish history and click on "Load Data"'
+    return 'Veuillez vous connecter au jeu , ouvrir l'interface de l'historique des vœux et cliquer sur "Copier l\'historique"'
   } else if (state.status === 'loaded') {
-    return `Last Updated：${new Date(state.data.time).toLocaleString()}`
+    return `Mis à jour pour le dernière fois le ${new Date(state.data.time).toLocaleString()}`
   } else if (state.status === 'loading') {
     return state.log
   } else if (state.status === 'failed') {
-    return state.log + ' - Failed'
+    return state.log + ' - Raté'
   }
   return ''
 })
@@ -88,5 +88,5 @@ ipcRenderer.on('ERROR', (event, err) => {
   console.error(err)
 })
 
-document.title = `Genshin Gacha Exporter - v${version}`
+document.title = `Exporteur d\'historique de Genshin - v${version}`
 </script>

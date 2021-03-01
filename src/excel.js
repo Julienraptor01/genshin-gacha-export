@@ -35,12 +35,12 @@ const start = async () => {
     const name = data.typeMap.get(key)
     const sheet = workbook.addWorksheet(name, {views: [{state: 'frozen', ySplit: 1}]})
     sheet.columns = [
-      { header: "Timestamp", key: "time", width: 24 },
-      { header: "Reward Name", key: "name", width: 35 },
-      { header: "Reward Type", key: "type", width: 15 },
-      { header: "Rarity (Star)", key: "rank", width: 15 },
-      { header: "Wish Count", key: "idx", width: 15 },
-      { header: "Pity Count", key: "pdx", width: 15 },
+      { header: "Horodatage", key: "time", width: 24 },
+      { header: "Récompense", key: "name", width: 35 },
+      { header: "Type de récompense", key: "type", width: 15 },
+      { header: "Rareté (étoiles)", key: "rank", width: 15 },
+      { header: "Nombres de vœux", key: "idx", width: 15 },
+      { header: "Nombres de vœux depuis le dernier 5 étoiles", key: "pdx", width: 15 },
     ]
     // get gacha logs
     const logs = value
@@ -105,20 +105,20 @@ const start = async () => {
     })
   }
 
-  sendMsg("Done fetching wish history.")
+  sendMsg("Copie de l'historique terminée.")
 
-  sendMsg("Exporting...")
+  sendMsg("Export...")
   const buffer = await workbook.xlsx.writeBuffer()
   const filePath = dialog.showSaveDialogSync({
-    defaultPath: path.join(app.getPath('downloads'), `Genshin_Wish_History_${getTimeString()}`),
+    defaultPath: path.join(app.getPath('downloads'), `Historique_des_vœux_de_Genshin_${getTimeString()}`),
     filters: [
-      { name: 'Excel文件', extensions: ['xlsx'] }
+      { name: 'Excel', extensions: ['xlsx'] }
     ]
   })
   if (filePath) {
     await fs.ensureFile(filePath)
     await fs.writeFile(filePath, buffer)
-    sendMsg("Exported successfully.")
+    sendMsg("Export terminé.")
   }
 }
 
